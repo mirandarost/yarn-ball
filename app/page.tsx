@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { pacifico } from "./layout";
+import { pacifico } from "./ui/fonts";
+import { RoutingButton } from "./ui/buttons";
 
 export default function Home() {
   return (
@@ -16,11 +17,8 @@ export default function Home() {
         <h1 className={`${pacifico.className} mt-7 text-6xl`}>Yarnball</h1>
       </div>
       <div>
-        <button className="flex h-10 items-center rounded-lg px-4 m-4 bg-white text-emerald-950 font-medium">
-          Click me!
-        </button>
+        <RoutingButton route='/details'>Get details</RoutingButton>
       </div>
-      
     </main>
   );
 }
