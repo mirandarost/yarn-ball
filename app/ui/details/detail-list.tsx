@@ -1,4 +1,3 @@
-
 interface ListRowProps {
     leftText: string,
     rightText: string
@@ -13,14 +12,19 @@ function ListRow({leftText, rightText}: ListRowProps) {
     );
 };
 
-export default function DetailList() {
+interface DetailListPair {
+    title: string,
+    value: string,
+}
+interface DetailListProps {
+    listItems: DetailListPair[]
+}
+
+export default function DetailList({listItems}: DetailListProps) {
+    const rows = listItems.map(item => <ListRow leftText={item.title} rightText={item.value} key={item.title}/>);
     return(
-        <div className='ml-10'>
-            <ListRow leftText='Namn1' rightText='text1'/>
-            <ListRow leftText='Namn2' rightText='text2'/>
-            <ListRow leftText='Namn3' rightText='text3'/>
+        <div>
+            {rows}
         </div>
-        
-        
     );
-};
+}; 

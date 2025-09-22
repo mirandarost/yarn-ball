@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { domine } from "./ui/fonts";
+import { robotoMono } from "./ui/fonts";
 
 export const metadata: Metadata = {
   title: "Yarnball",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${domine.className} antialiased min-h-full`}
+        className={`${robotoMono.className} antialiased min-h-full bg-orange-100 text-slate-800`}
       >
         {children}
       </body>
