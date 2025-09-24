@@ -21,7 +21,7 @@ const HoneyPattern = {
     description: 'This sweater is a inspired by some of my favorite things - Wool & Honey Yarn shop in Northern Michigan, Brooklyn Tweed Loft, honeycombs, and my current favorite color, rusty orange! Knit top down, with a flattering, cropped, boxy silhouette, it looks equally beautiful paired with your favorite jeans or thrown on over a dress!'
 }
 
-export function getPattern() {
+export function getMockPattern() {
     return(HoneyPattern)
 };
 
