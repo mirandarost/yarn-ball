@@ -6,8 +6,6 @@ import '@/app/envConfig.ts';
 
 export async function getPattern(id: string) {
     const patternUrl = `https://api.ravelry.com/patterns/${id}.json`
-    // const url = 'https://api.ravelry.com/patterns/wool--honey.json'
-
     const username = process.env.API_USERNAME;
     const password = process.env.API_PASSWORD;
 
