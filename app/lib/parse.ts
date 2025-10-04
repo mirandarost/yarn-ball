@@ -1,4 +1,4 @@
-
+import { ImageInfo, Pattern } from "@/app/lib/data-types";
 
 function parseNeedles( needles:any[] ){
     let needleString: string = '';
@@ -38,18 +38,34 @@ function parseDifficulty( difficulty:number ) {
 
 function parseImages( images:any[] ) {
 
-    if(images[0].large_url) {
-        return(images[0].large_url)
-    } else if(images[0].medium2_url) {
-        return(images[0].medium2_url)
+    const imageList: ImageInfo[] = [];
+    
+    for ( let i = 0; i < images.length; i++ ) {
+
+        let imageUrl = '';
+
+        if(images[i].large_url) {
+            imageUrl = images[i].large_url
+        } else if(images[i].medium2_url) {
+            imageUrl = images[i].medium2_url
+        } else {
+            imageUrl = images[i].medium_url
+        }
+
+        const imageInfo: ImageInfo = {
+            sortOrder: i,
+            thumbnailUrl: images[i].small_url,
+            url: imageUrl
+        }
+        imageList.push(imageInfo);
     }
-    return images[0].medium_url
+    return imageList;
 }
 
 
-export function getParsedPattern(pattern: any) {
+export async function getParsedPattern(pattern: any) {
 
-    const parsedPattern = {
+    const parsedPattern: Pattern = {
         name: pattern.name,
         author: pattern.pattern_author.name,
         projects: pattern.projects_count.toString(),
@@ -62,12 +78,10 @@ export function getParsedPattern(pattern: any) {
         currency: pattern.currency,
         rating: Number(pattern.rating_average.toFixed(1)),
         difficulty: parseDifficulty(pattern.difficulty_average),
-        image: parseImages(pattern.photos),
+        images: parseImages(pattern.photos),
         link: 'https://www.ravelry.com/patterns/library/' + pattern.permalink,
         description: pattern.notes_html
-    }
-
-    // console.log(parsedPattern)
+    }   
 
     return parsedPattern;
     
