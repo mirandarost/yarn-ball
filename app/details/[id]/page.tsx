@@ -1,7 +1,8 @@
 
-import Image from "next/image";
 import Header from "@/app/ui/header";
 import { notFound } from "next/navigation";
+
+import '@/app/details/[id]/description.css';
 
 import { getPattern } from "@/app/lib/data";
 import Carousel from "@/app/ui/details/carousel";
@@ -29,7 +30,7 @@ export default async function Page(props: {params: Promise<{ id: string }>}) {
 
             </div>
             <div className='flex mt-8 justify-center'>
-                <div className='w-4xl text-sm border-emerald-900 border-t p-5' dangerouslySetInnerHTML={
+                <div className='description w-4xl text-sm border-emerald-900 border-t p-5' dangerouslySetInnerHTML={
                     {__html: pattern.description}
                     }>
 
