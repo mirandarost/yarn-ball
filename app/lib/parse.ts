@@ -54,7 +54,7 @@ function parseImages( images:any[] ) {
 
         const imageInfo: ImageInfo = {
             sortOrder: i,
-            thumbnailUrl: images[i].small_url,
+            thumbnailUrl: images[i].square_url,
             url: imageUrl
         }
         imageList.push(imageInfo);
