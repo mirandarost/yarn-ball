@@ -13,11 +13,18 @@ export interface Pattern {
     needles: string,
     ravelryDownload: boolean,
     free: boolean,
-    price: number,
-    currency: string,
-    rating: number,
-    difficulty: string,
+    price: number | null,
+    currency: string | null,
+    rating: number | null,
+    difficulty: string | null,
     images: ImageInfo[],
     link: string,
     description: string
 }
+
+export interface PartialPattern  {
+    name: string,
+    author: string,
+    link: string,
+    image: string
+    }

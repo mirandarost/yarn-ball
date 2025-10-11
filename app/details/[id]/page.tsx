@@ -1,19 +1,19 @@
 
 import Header from "@/app/ui/header";
 import { notFound } from "next/navigation";
-
 import '@/app/details/[id]/description.css';
-
-import { getPattern } from "@/app/lib/data";
+import { getFullPattern } from "@/app/lib/data";
 import Carousel from "@/app/ui/details/carousel";
-import PatternOverview from "@/app/ui/details/patternOverview";
+import PatternOverview from "@/app/ui/details/pattern-overview";
+import { Pattern } from "@/app/lib/data-types";
+
 
 export default async function Page(props: {params: Promise<{ id: string }>}) {
 
     const params = await props.params;
     const id = params.id;
 
-    const pattern = await getPattern(id);
+    const pattern : Pattern | null = await getFullPattern(id);
 
     if (!pattern) {
         notFound()

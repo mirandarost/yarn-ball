@@ -1,6 +1,5 @@
 import { Pattern } from "@/app/lib/data-types";
 import { domine } from "@/app/ui/fonts";
-import Image from "next/image";
 import { LinkButton } from "@/app/ui/buttons";
 import TextBox from "@/app/ui/details/textBox";
 
@@ -23,10 +22,10 @@ export default function PatternOverview({pattern}: PatternOverviewProps) {
                     {`${pattern.projects} projects`}
                 </div>
                 <div className="mr-10">
-                    {`★ ${pattern.rating}/5`}
+                    {pattern.rating ? `★ ${pattern.rating}/5` : 'No ratings'}
                 </div>
                 <div className="">
-                    {`Difficulty: ${pattern.difficulty}`}
+                    {pattern.difficulty ? `Difficulty: ${pattern.difficulty}` :''}
                 </div>
             </div>
 
@@ -47,7 +46,7 @@ export default function PatternOverview({pattern}: PatternOverviewProps) {
             <div className="flex border-emerald-900 border-b border-t p-2 mt-10">
                 <div className="w-sm">
                     <div className='font-bold'>
-                        {`${pattern.price} ${pattern.currency}`}
+                        {pattern.free ? 'Free' : `${pattern.price} ${pattern.currency}`}
                     </div>
                     <div className="text-sm">
                         <div className="flex ">

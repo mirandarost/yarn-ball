@@ -26,7 +26,11 @@ function parseYarn( yarns:any[]) {
     return(yarnString);
 }
 
-function parseDifficulty( difficulty:number ) {
+function parseDifficulty( difficulty:number, difficultCount: number ) {
+    if(!difficultCount) {
+        return(null)
+    }
+
     if( difficulty < 3) {
         return('Easy')
     } else if( difficulty < 6) {
@@ -54,12 +58,21 @@ function parseImages( images:any[] ) {
 
         const imageInfo: ImageInfo = {
             sortOrder: i,
-            thumbnailUrl: images[i].square_url,
+            thumbnailUrl: images[i].small_url,
             url: imageUrl
         }
         imageList.push(imageInfo);
     }
     return imageList;
+}
+
+function parseRating(rating: number, ratingCount: number) {
+    if(!ratingCount) {
+        return(null)
+    } else {
+        return(Number(rating.toFixed(1)))
+    }
+
 }
 
 
@@ -76,8 +89,8 @@ export async function getParsedPattern(pattern: any) {
         free: pattern.free,
         price: pattern.price,
         currency: pattern.currency,
-        rating: Number(pattern.rating_average.toFixed(1)),
-        difficulty: parseDifficulty(pattern.difficulty_average),
+        rating: parseRating(pattern.rating_average, pattern.rating_count),
+        difficulty: parseDifficulty(pattern.difficulty_average, pattern.difficulty_count),
         images: parseImages(pattern.photos),
         link: 'https://www.ravelry.com/patterns/library/' + pattern.permalink,
         description: pattern.notes_html

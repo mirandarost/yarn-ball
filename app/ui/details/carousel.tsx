@@ -17,18 +17,18 @@ export default function Carousel({imageList}: CarouselProps) {
     return (
         <div className='flex'>
 
-            <div className="h-130 w-25 overflow-y-scroll justify-center border-emerald-900 border-1 p-2 rounded-lg">
+            <div className="h-130 w-35 overflow-y-scroll justify-center border-emerald-900 border-1 p-2 rounded-lg">
                 {
                     imageList.map( (image: ImageInfo) => (
-                        <div key={image.sortOrder} className={`mb-5 flex justify-center `}>
+                        <div key={image.sortOrder} className={`w-30 h-30 mb-5 flex justify-center relative`}>
                             <Image 
                                 src={image.thumbnailUrl}
                                 alt={`Image ${image.sortOrder}`}
-                                height= '75'
-                                width= '75'
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 priority={true}
                                 onClick={() => setActiveImageIndex(image.sortOrder)}
-                                className={`rounded-lg ${activeImageIndex === image.sortOrder ? 'active' : ''}`}
+                                className={`object-cover rounded-lg cursor-pointer ${activeImageIndex === image.sortOrder ? 'active' : ''}`}
                             />
                         </div>
                     ))
