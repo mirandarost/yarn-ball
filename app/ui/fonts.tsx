@@ -7,10 +7,12 @@ export const pacifico = Pacifico({
 
 export const domine = Domine({
   weight: "400",
-  subsets: ["latin"]
+  subsets: ["latin"],
+  variable: '--font-domine'
 })
 
 export const robotoMono = Roboto_Mono({
   weight: "400",
-  subsets: ["latin"]
+  subsets: ["latin"],
+  variable: '--font-roboto-mono'
 })

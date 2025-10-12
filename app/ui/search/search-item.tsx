@@ -26,10 +26,10 @@ export default function SearchItem({pattern}: SearchItemProps) {
             </div>
                 </Link>
 
-            <p className="overflow-hidden text-ellipsis w-60 h-5 whitespace-nowrap text-sm">
+            <p className="overflow-hidden text-ellipsis w-60 h-5 whitespace-nowrap">
             {pattern.name}
             </p>
-            <p className="overflow-hidden text-ellipsis w-60 h-5 whitespace-nowrap text-sm">
+            <p className="overflow-hidden text-ellipsis w-60 h-5 whitespace-nowrap">
             {`by ${pattern.author}`}
             </p>
             

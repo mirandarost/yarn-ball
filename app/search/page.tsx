@@ -1,5 +1,5 @@
-import { searchPatterns } from "@/app/lib/data";
-import { PartialPattern } from "@/app/lib/data-types";
+import { getFilters, getPatternCategories, searchPatterns } from "@/app/lib/data";
+import { PartialPattern, FilterTypes } from "@/app/lib/data-types";
 import { notFound } from "next/navigation";
 import SearchItem from "../ui/search/search-item";
 import Header from "@/app/ui/header";
@@ -9,8 +9,9 @@ import Filters from "@/app/ui/search/filters";
 export default async function Page() {
 
     const patterns: PartialPattern[] | null = await searchPatterns();
+    const filters: FilterTypes | null = await getFilters();
 
-    if (!patterns) {
+    if (!patterns || filters!) {
         notFound
     }
 
@@ -18,6 +19,9 @@ export default async function Page() {
         <div>
             <Header />
             <div className="flex">
+                <div>
+                    <Filters filters={filters}/>
+                </div>
                 <div className='flex flex-wrap'>
                     {patterns.map( (pattern) => (
                         <div key={pattern.link} className="m-2">

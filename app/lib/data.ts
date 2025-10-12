@@ -3,6 +3,8 @@
 import { getParsedPattern } from "@/app/lib/parse-pattern";
 import { getParsedSearch } from "@/app/lib/parse-search";
 import '@/app/envConfig.ts';
+import { getParsedCategories } from "@/app/lib/parse-filters";
+import { FilterTypes } from "@/app/lib/data-types";
 
 const username = process.env.API_USERNAME;
 const password = process.env.API_PASSWORD;
@@ -18,7 +20,6 @@ export async function getFullPattern(id: string) {
     try {
         const data = await fetch(patternUrl, {headers: headers});
         const { pattern } = await data.json();
-        console.log(pattern);
         const parsedPattern = getParsedPattern(pattern);
         return(parsedPattern);
 
@@ -34,10 +35,7 @@ export async function searchPatterns() {
     try {
         const data = await fetch(searchUrl, {headers: headers});
         const { patterns } = await data.json();
-        // console.log(patterns);
-
         const parsedSearch = getParsedSearch(patterns);
-        // console.log(parsedSearch);
         return(parsedSearch);
     } catch (error) {
         console.error(error);
@@ -50,12 +48,20 @@ export async function getPatternCategories() {
     
     try {
         const data = await fetch(categoriesUrl, {headers: headers});
-        console.log(data);
         const categories = await data.json();
-        console.log(categories);
-        return(categories);
+        const parsedCategories = getParsedCategories(categories.pattern_categories.children);
+        return(parsedCategories);
+
     } catch (error) {
         console.error(error);
         return [];
     }
+}
+
+export async function getFilters() {
+
+    const filters: FilterTypes = {
+        category: await getPatternCategories()
+    }
+    return(filters);
 }

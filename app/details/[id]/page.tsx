@@ -30,7 +30,7 @@ export default async function Page(props: {params: Promise<{ id: string }>}) {
 
             </div>
             <div className='flex mt-8 justify-center'>
-                <div className='description w-4xl text-sm border-emerald-900 border-t p-5' dangerouslySetInnerHTML={
+                <div className='description w-4xl border-emerald-900 border-t p-5' dangerouslySetInnerHTML={
                     {__html: pattern.description}
                     }>
 

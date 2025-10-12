@@ -27,4 +27,18 @@ export interface PartialPattern  {
     author: string,
     link: string,
     image: string
-    }
+}
+
+export interface Filter {
+    name: string;
+    link: string;
+    children: Filter[];
+}
+
+export interface FilterTypes {
+    category: Filter[],
+    yarnWeight?: Filter[],
+    ageSizeFit?: Filter[],
+    attributes?: Filter[],
+    craft?: Filter[]
+}

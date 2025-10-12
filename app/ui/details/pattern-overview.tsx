@@ -1,7 +1,7 @@
 import { Pattern } from "@/app/lib/data-types";
 import { domine } from "@/app/ui/fonts";
 import { LinkButton } from "@/app/ui/buttons";
-import TextBox from "@/app/ui/details/textBox";
+import TextBox from "@/app/ui/details/text-box";
 
 interface PatternOverviewProps {
     pattern: Pattern;
@@ -11,9 +11,9 @@ export default function PatternOverview({pattern}: PatternOverviewProps) {
     return(
         <div className="pl-10 w-xl">
             {/* Title */}
-            <div className={`${domine.className} text-emerald-900`}>
-                <h1 className={`text-5xl`}>{pattern.name}</h1>
-                <div className="text-xl pl-8">{`by ${pattern.author}`}</div>
+            <div>
+                <h1>{pattern.name}</h1>
+                <h3 className="pl-8">{`by ${pattern.author}`}</h3>
             </div>
 
             {/* Community */}
@@ -48,7 +48,7 @@ export default function PatternOverview({pattern}: PatternOverviewProps) {
                     <div className='font-bold'>
                         {pattern.free ? 'Free' : `${pattern.price} ${pattern.currency}`}
                     </div>
-                    <div className="text-sm">
+                    <div>
                         <div className="flex ">
                             <div className="mr-2">Ravelry Download </div>
                             <div>

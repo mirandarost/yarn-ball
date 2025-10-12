@@ -20,7 +20,7 @@ export default function TextBox({icon, title, children}: TextBoxProp) {
                 />
                 <div className="underline">{title}</div>
             </div>
-            <div className="text-sm">
+            <div>
                 <div>{children}</div>
             </div>
         </div>

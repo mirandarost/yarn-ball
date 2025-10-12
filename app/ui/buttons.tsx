@@ -13,7 +13,6 @@ const buttonStyling = `items-center
             rounded-lg 
             py-2.5 
             px-4 
-            text-sm 
             font-bold
             text-white 
             transition-colors 
