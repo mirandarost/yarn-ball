@@ -1,9 +1,9 @@
-import { getFilters, getPatternCategories, searchPatterns } from "@/app/lib/data";
+import { getFilters, searchPatterns } from "@/app/lib/data";
 import { PartialPattern, FilterTypes } from "@/app/lib/data-types";
 import { notFound } from "next/navigation";
 import SearchItem from "../ui/search/search-item";
 import Header from "@/app/ui/header";
-import Filters from "@/app/ui/search/filters";
+import FilterSideView from "@/app/ui/search/filter-side-view";
 
 
 export default async function Page() {
@@ -20,7 +20,7 @@ export default async function Page() {
             <Header />
             <div className="flex">
                 <div>
-                    <Filters filters={filters}/>
+                    <FilterSideView filters={filters}/>
                 </div>
                 <div className='flex flex-wrap'>
                     {patterns.map( (pattern) => (

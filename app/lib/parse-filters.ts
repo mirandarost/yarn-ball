@@ -20,6 +20,6 @@ export function getParsedCategories(categories: any[]) {
         // console.log(categories);
 
         const parsedCategories = parseCategories(categories);
-        console.log(parsedCategories);
+        // console.log(parsedCategories);
         return(parsedCategories);
 }

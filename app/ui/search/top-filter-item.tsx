@@ -14,8 +14,8 @@ export default function TopFilterItem({ name, children }: FilterItemProps) {
     const [isOpen, toggleOpen] = useState(false);
 
     return(
-        <div onClick={() => toggleOpen(!isOpen)} className='cursor-pointer'>
-            <h3>
+        <div>
+            <h3 onClick={() => toggleOpen(!isOpen)} className='cursor-pointer'>
                 <span>{name}</span>
                 <span className='float-right'>
                     {isOpen ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
