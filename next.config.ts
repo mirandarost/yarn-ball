@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       new URL('https://images4-f.ravelrycache.com/uploads/**'),
       new URL('https://images4-g.ravelrycache.com/uploads/**'),
       new URL('https://images4-h.ravelrycache.com/uploads/**'),
+      new URL('https://farm66.staticflickr.com/**'),
     ],
   },
 };

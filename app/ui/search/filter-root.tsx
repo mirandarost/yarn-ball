@@ -4,14 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
-interface FilterItemProps {
+interface FilterRoot {
     name: String,
+    initialState: boolean,
     children?: React.ReactNode
 }
 
-export default function TopFilterItem({ name, children }: FilterItemProps) {
+export default function FilterRoot({ name, children, initialState}: FilterRoot) {
 
-    const [isOpen, toggleOpen] = useState(false);
+    const [isOpen, toggleOpen] = useState(initialState);
 
     return(
         <div>
@@ -21,7 +22,7 @@ export default function TopFilterItem({ name, children }: FilterItemProps) {
                     {isOpen ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
                 </span>
             </h3>
-            <div className={ isOpen ? '' : 'hidden'}>
+            <div className={`ml-3 ${isOpen ? '' : 'hidden'}` }>
                 {children}
             </div>
         </div>

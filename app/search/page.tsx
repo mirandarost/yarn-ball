@@ -1,7 +1,9 @@
+import { notFound } from "next/navigation";
+
 import { getFilters, searchPatterns } from "@/app/lib/data";
 import { PartialPattern, FilterTypes } from "@/app/lib/data-types";
-import { notFound } from "next/navigation";
-import SearchItem from "../ui/search/search-item";
+
+import SearchItem from "@/app/ui/search/search-item";
 import Header from "@/app/ui/header";
 import FilterSideView from "@/app/ui/search/filter-side-view";
 

@@ -13,12 +13,13 @@ const checkboxStyling = `
     `;
 
 
-export default function Checkbox({className, onChange}: React.InputHTMLAttributes<HTMLInputElement>) {
+export default function Checkbox({className, onChange, checked}: React.InputHTMLAttributes<HTMLInputElement>) {
     return(
         <input 
         type='checkbox' 
         className={`${className} ${checkboxStyling}`}
         onChange={onChange}
+        checked={checked}
         />
     )
 }
