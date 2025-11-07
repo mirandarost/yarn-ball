@@ -1,20 +1,23 @@
 import { notFound } from "next/navigation";
 
 import { getFilters, searchPatterns } from "@/app/lib/data";
-import { PartialPattern, FilterTypes } from "@/app/lib/data-types";
+import { PartialPattern, AllFilters } from "@/app/lib/data-types";
 
 import SearchItem from "@/app/ui/search/search-item";
 import Header from "@/app/ui/header";
 import FilterSideView from "@/app/ui/search/filter-side-view";
+import { FilterParams } from "@/app/lib/data-types";
 
 
-export default async function Page() {
+export default async function Page(props: {searchParams: Promise<FilterParams>}) {
 
-    const patterns: PartialPattern[] | null = await searchPatterns();
-    const filters: FilterTypes | null = await getFilters();
+    const params = await props.searchParams;
 
-    if (!patterns || filters!) {
-        notFound
+    const patterns: PartialPattern[] | null = await searchPatterns(params);
+    const filters: AllFilters | null = await getFilters();
+
+    if (!patterns || !filters) {
+        notFound();
     }
 
     return(
@@ -22,7 +25,7 @@ export default async function Page() {
             <Header />
             <div className="flex">
                 <div>
-                    <FilterSideView filters={filters}/>
+                    <FilterSideView filters={filters} filterParams={params}/>
                 </div>
                 <div className='flex flex-wrap'>
                     {patterns.map( (pattern) => (

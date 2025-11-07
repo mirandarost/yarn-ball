@@ -1,17 +1,19 @@
 'use server';
 
-import { getParsedPattern } from "@/app/lib/parse-pattern";
-import { getParsedSearch } from "@/app/lib/parse-search";
 import '@/app/envConfig.ts';
-import { getParsedCategories } from "@/app/lib/parse-filters";
-import { FilterTypes } from "@/app/lib/data-types";
+
+import { getParsedPattern } from "@/app/lib/parsers/parse-pattern";
+import { getParsedSearch } from "@/app/lib/parsers/parse-search";
+import { getParsedCategories } from "@/app/lib/parsers/parse-filters";
+import { AllFilters, FilterParams } from "@/app/lib/data-types";
+import { getYarnWeights } from '@/app/lib/constants';
 
 const username = process.env.API_USERNAME;
 const password = process.env.API_PASSWORD;
 const baseUrl = 'https://api.ravelry.com';
 
 const headers = new Headers();
-    headers.set('Authorization', 'Basic ' + Buffer.from(username + ":" + password).toString('base64'));
+headers.set('Authorization', 'Basic ' + Buffer.from(username + ":" + password).toString('base64'));
 
 
 export async function getFullPattern(id: string) {
@@ -29,8 +31,21 @@ export async function getFullPattern(id: string) {
     }
 }
 
-export async function searchPatterns() {
-    const searchUrl = `${baseUrl}/patterns/search.json`;
+export async function searchPatterns(params: FilterParams) {
+    let searchUrl = `${baseUrl}/patterns/search.json`;
+    
+
+    if(params) {
+        let filterString='';
+        
+        for (const [key, value] of Object.entries(params)) {
+            filterString = filterString + value + ',';
+        }
+
+        searchUrl = `${searchUrl}?query=${filterString}`
+    }
+
+    console.log(searchUrl);
 
     try {
         const data = await fetch(searchUrl, {headers: headers});
@@ -43,7 +58,7 @@ export async function searchPatterns() {
     }
 }
 
-export async function getPatternCategories() {
+async function getPatternCategories() {
     const categoriesUrl = `${baseUrl}/pattern_categories/list.json`;
     
     try {
@@ -60,8 +75,9 @@ export async function getPatternCategories() {
 
 export async function getFilters() {
 
-    const filters: FilterTypes = {
-        category: await getPatternCategories()
+    const filters: AllFilters = {
+        category: await getPatternCategories(),
+        yarnWeight: getYarnWeights()
     }
     return(filters);
 }

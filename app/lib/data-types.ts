@@ -32,13 +32,19 @@ export interface PartialPattern  {
 export interface Filter {
     name: string;
     link: string;
-    children: Filter[];
+    children?: Filter[];
 }
 
-export interface FilterTypes {
+export interface AllFilters {
     category: Filter[],
-    yarnWeight?: Filter[],
+    yarnWeight: Filter[],
     ageSizeFit?: Filter[],
     attributes?: Filter[],
     craft?: Filter[]
+}
+
+export interface FilterParams {
+    category?: string | undefined,
+    weight?: string | undefined,
+    fit?: string | undefined,
 }

@@ -1,10 +1,12 @@
-import { FilterTypes } from "@/app/lib/data-types";
+import { AllFilters, FilterParams } from "@/app/lib/data-types";
 import FilterTree from "@/app/ui/search/filter-tree";
+
 interface FilterSideViewProps {
-    filters: FilterTypes
+    filters: AllFilters,
+    filterParams: FilterParams,
 }
 
-export default function FilterSideView({filters}: FilterSideViewProps) {
+export default function FilterSideView({ filters, filterParams }: FilterSideViewProps) {
 
     return(
         <div className='ml-5'>
@@ -13,7 +15,19 @@ export default function FilterSideView({filters}: FilterSideViewProps) {
                 
             <div>
                 <div className="mb-5">
-                    <FilterTree filters={filters.category} filterType='category' filterName='Category'/>
+                    <FilterTree 
+                        filters={filters.category} 
+                        filterType='category' 
+                        filterName='Category'
+                        filterParam={filterParams?.category || ''}
+                    />
+                    <FilterTree 
+                        filters={filters.yarnWeight} 
+                        filterType='weight' 
+                        filterName='Yarn Weight'
+                        filterParam={filterParams?.weight || ''}
+                    />
+
                 </div>
             </div>
         </div>

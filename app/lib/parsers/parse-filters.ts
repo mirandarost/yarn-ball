@@ -1,7 +1,7 @@
 import { Filter } from "@/app/lib/data-types";
 
 
-export function parseCategories(categories: any[]) {
+function parseCategories(categories: any[]) {
     const categoryList: Filter[] = [];
 
     for (let i= 0; i < categories.length; i++) {
@@ -17,9 +17,6 @@ export function parseCategories(categories: any[]) {
 }
 
 export function getParsedCategories(categories: any[]) {
-        // console.log(categories);
-
-        const parsedCategories = parseCategories(categories);
-        // console.log(parsedCategories);
-        return(parsedCategories);
+    const parsedCategories = parseCategories(categories);
+    return(parsedCategories);
 }
