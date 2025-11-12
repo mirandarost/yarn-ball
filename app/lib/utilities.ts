@@ -39,3 +39,36 @@ export function getFilterFamily(filters:Filter[], filterParams:string[]) {
 
     return family;
 }
+
+export function checkFilters(filters:Filter[], filterParams:string[]) {
+    const checkedFilters: Filter[] = [];
+
+    if (!filterParams) {
+        return checkFilters
+    }
+
+    filters.map(parent => {
+        if (filterParams.includes(parent.link)) {
+            parent.isChecked = true;
+        }
+
+        parent.children ? parent.children.map(child => {
+            if(filterParams.includes(child.link)) {
+                parent.isChecked = true;
+                child.isChecked = true;
+                
+            }
+
+            child.children ? child.children.map(grandchild => {
+                if(filterParams.includes(grandchild.link)) {
+                    parent.isChecked = true;
+                    child.isChecked = true;
+                    grandchild.isChecked = true;
+                }
+            }) : ''
+        }) : ''
+
+    })
+
+    return checkedFilters;
+}

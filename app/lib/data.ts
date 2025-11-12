@@ -58,13 +58,13 @@ export async function searchPatterns(params: FilterParams) {
     }
 }
 
-async function getPatternCategories() {
+async function getPatternCategories(params:string|undefined) {
     const categoriesUrl = `${baseUrl}/pattern_categories/list.json`;
     
     try {
         const data = await fetch(categoriesUrl, {headers: headers});
         const categories = await data.json();
-        const parsedCategories = getParsedCategories(categories.pattern_categories.children);
+        const parsedCategories = getParsedCategories(categories.pattern_categories.children, params);
         return(parsedCategories);
 
     } catch (error) {
@@ -73,11 +73,11 @@ async function getPatternCategories() {
     }
 }
 
-export async function getFilters() {
+export async function getFilters(params: FilterParams|undefined) {
 
     const filters: AllFilters = {
-        category: await getPatternCategories(),
-        yarnWeight: getYarnWeights()
+        category: await getPatternCategories(params?.category ? params.category : undefined),
+        yarnWeight: getYarnWeights(params?.weight ? params.weight : undefined)
     }
     return(filters);
 }

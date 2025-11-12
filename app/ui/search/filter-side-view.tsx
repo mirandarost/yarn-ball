@@ -19,13 +19,13 @@ export default function FilterSideView({ filters, filterParams }: FilterSideView
                         filters={filters.category} 
                         filterType='category' 
                         filterName='Category'
-                        filterParam={filterParams?.category || ''}
+                        isOpen={filterParams?.category ? true : false}
                     />
                     <FilterTree 
                         filters={filters.yarnWeight} 
                         filterType='weight' 
                         filterName='Yarn Weight'
-                        filterParam={filterParams?.weight || ''}
+                        isOpen={filterParams?.weight ? true : false}
                     />
 
                 </div>

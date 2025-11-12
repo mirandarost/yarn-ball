@@ -14,7 +14,7 @@ export default async function Page(props: {searchParams: Promise<FilterParams>})
     const params = await props.searchParams;
 
     const patterns: PartialPattern[] | null = await searchPatterns(params);
-    const filters: AllFilters | null = await getFilters();
+    const filters: AllFilters | null = await getFilters(params);
 
     if (!patterns || !filters) {
         notFound();

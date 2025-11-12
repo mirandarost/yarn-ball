@@ -33,6 +33,7 @@ export interface Filter {
     name: string;
     link: string;
     children?: Filter[];
+    isChecked: boolean;
 }
 
 export interface AllFilters {
