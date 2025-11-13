@@ -9,7 +9,7 @@ export function getParsedSearch(patterns: any[]) {
             name: patterns[i].name,
             author: patterns[i].pattern_author.name,
             link: patterns[i].permalink,
-            image: patterns[i].first_photo.medium_url
+            image: patterns[i].first_photo?.medium_url ? patterns[i].first_photo.medium_url : ''
         }
         searchList.push(patternInfo);
     }
