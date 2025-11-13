@@ -52,8 +52,10 @@ function parseImages( images:any[] ) {
             imageUrl = images[i].large_url
         } else if(images[i].medium2_url) {
             imageUrl = images[i].medium2_url
-        } else {
+        } else if (images[i].medium_url){
             imageUrl = images[i].medium_url
+        } else {
+            imageUrl=''
         }
 
         const imageInfo: ImageInfo = {

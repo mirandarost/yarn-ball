@@ -1,4 +1,5 @@
 import { Filter } from "@/app/lib/data-types";
+import { getYarnWeights } from "@/app/lib/constants";
 
 function parseCategories(categories: any[]) {
     const categoryList: Filter[] = [];
@@ -52,4 +53,19 @@ export function getParsedCategories(categories: any[], paramString?:string|undef
     const parsedCategories = parseCategories(categories);
     const checkedCategories = checkFilters(parsedCategories, paramString)
     return(checkedCategories);
+}
+
+export function getParsedYarnWeights(paramString:string|undefined) {
+    const yarnWeights = getYarnWeights();
+
+    if(paramString) {
+        const filterParams: string[] = paramString.split(',');
+
+        yarnWeights.map(filter => {
+            if(filterParams.includes(filter.link)) {
+                filter.isChecked = true;
+            }
+        })
+    }
+    return yarnWeights
 }

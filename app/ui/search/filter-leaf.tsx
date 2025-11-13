@@ -7,17 +7,23 @@ import { useState } from 'react';
 
 interface FilterLeafProps{
     filter: Filter,
-    initialState: boolean
+    initialState: boolean,
+    filterFunction: ( filter:string, isChecked:boolean ) => void,
 }
 
-export default function FilterLeaf({filter, initialState}: FilterLeafProps) {
+export default function FilterLeaf({filter, initialState, filterFunction}: FilterLeafProps) {
 
 const [isChecked, toggleChecked] = useState(initialState);
+
+const handleCheck = () => {
+        filterFunction(filter.link, !isChecked)
+        toggleChecked(!isChecked);
+    }
 
     return(
         <div>
             <div className='flex'>
-                <Checkbox checked={isChecked} className={`mr-2`} onChange={() => toggleChecked(!isChecked)}/>
+                <Checkbox checked={isChecked} className={`mr-2`} onChange={() => handleCheck()}/>
                 <p>{filter.name}</p>
             </div>
         </div>

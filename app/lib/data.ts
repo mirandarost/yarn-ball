@@ -4,9 +4,8 @@ import '@/app/envConfig.ts';
 
 import { getParsedPattern } from "@/app/lib/parsers/parse-pattern";
 import { getParsedSearch } from "@/app/lib/parsers/parse-search";
-import { getParsedCategories } from "@/app/lib/parsers/parse-filters";
+import { getParsedCategories, getParsedYarnWeights } from "@/app/lib/parsers/parse-filters";
 import { AllFilters, FilterParams } from "@/app/lib/data-types";
-import { getYarnWeights } from '@/app/lib/constants';
 
 const username = process.env.API_USERNAME;
 const password = process.env.API_PASSWORD;
@@ -77,7 +76,7 @@ export async function getFilters(params: FilterParams|undefined) {
 
     const filters: AllFilters = {
         category: await getPatternCategories(params?.category ? params.category : undefined),
-        yarnWeight: getYarnWeights(params?.weight ? params.weight : undefined)
+        yarnWeight: getParsedYarnWeights(params?.weight ? params.weight : undefined)
     }
     return(filters);
 }

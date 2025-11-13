@@ -16,16 +16,6 @@ const yarnWeights:Filter[] = [
     { name: 'Jumbo', link: 'jumbo', isChecked:false},
 ]
 
-export function getYarnWeights(paramString:string|undefined) {
-
-    if(paramString) {
-        const filterParams: string[] = paramString.split(',');
-
-        yarnWeights.map(filter => {
-            if(filterParams.includes(filter.link)) {
-                filter.isChecked = true;
-            }
-        })
-    }
-    return yarnWeights
+export function getYarnWeights() {
+    return yarnWeights;
 }

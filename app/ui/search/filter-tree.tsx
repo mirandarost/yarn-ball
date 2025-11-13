@@ -1,10 +1,10 @@
+'use client';
+
 import FilterRoot from "@/app/ui/search/filter-root";
 import FilterBranch from "@/app/ui/search/filter-branch";
 import FilterLeaf from "@/app/ui/search/filter-leaf";
 import { Filter } from "@/app/lib/data-types";
-// import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-
-
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 interface FilterTreeProps {
         filterType: string,
         filterName: string
@@ -15,19 +15,38 @@ interface FilterTreeProps {
 export default function FilterTree({filterType, filterName, filters, isOpen}: FilterTreeProps) {
 
 
-    // const searchParams = useSearchParams();
-    // const pathname = usePathname();
-    // const { replace } = useRouter();
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
 
-    // const filterResult = (filter:string) => {
-    //     console.log('Filtering for', filterType, filter)
+    const filterResult = (filter:string, isChecked:boolean) => {
 
-    //     const params = new URLSearchParams(searchParams);
-    //     params.set(filterType, filter);
+        const params = new URLSearchParams(searchParams);
+        const paramString = params.get(filterType);
 
-    //     replace(`${pathname}?${params.toString()}`)
+        if(isChecked) {
+            if(paramString) {
+                params.set(filterType, `${paramString},${filter}`);
+            } else {
+                params.set(filterType, filter);
+            }
+        } else {
+            if(paramString) {
+                const filterParams: string[] = paramString.split(',');
 
-    // };
+                if(filterParams.includes(filter)){
+                    if(filterParams.length == 1) {
+                        params.delete(filterType);
+                    } else {
+                        const filterIndex = filterParams.indexOf(filter);
+                        filterParams.splice(filterIndex);
+                        params.set(filterType, filterParams.toString());
+                    }
+                }
+            }
+        }
+        replace(`${pathname}?${params.toString()}`);
+    };
 
     return(
         <div>
@@ -39,7 +58,7 @@ export default function FilterTree({filterType, filterName, filters, isOpen}: Fi
                             key={parent.link} 
                             filter={parent} 
                             initialState={parent.isChecked}
-                            // filterFunction={ filterResult }
+                            filterFunction={ filterResult }
                         >
 
                             {parent.children.map(child => (
@@ -48,7 +67,7 @@ export default function FilterTree({filterType, filterName, filters, isOpen}: Fi
                                     filter={child} 
                                     key={child.link} 
                                     initialState={child.isChecked}
-                                    // filterFunction={ filterResult }
+                                    filterFunction={ filterResult }
                                 >
 
                                     {child.children.map(grandchild => (
@@ -56,20 +75,25 @@ export default function FilterTree({filterType, filterName, filters, isOpen}: Fi
                                         filter={grandchild} 
                                         key={grandchild.link}
                                         initialState={grandchild.isChecked} 
+                                        filterFunction={ filterResult }
                                     />
                                     ))}
                                 </FilterBranch> 
                                 : <FilterLeaf 
-                                filter={child} 
-                                key={child.link}
-                                initialState={child.isChecked}/>
+                                    filter={child} 
+                                    key={child.link}
+                                    initialState={child.isChecked}
+                                    filterFunction={ filterResult }
+                                />
                                 
                             ))}
                         </FilterBranch> 
                         : <FilterLeaf 
                             key={parent.link} 
                             filter={parent}
-                            initialState={parent.isChecked}/>
+                            initialState={parent.isChecked}
+                            filterFunction={ filterResult }
+                        />
                     ))}
                 </div>
             </FilterRoot>  

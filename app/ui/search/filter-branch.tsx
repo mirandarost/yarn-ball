@@ -8,16 +8,16 @@ interface FilterBranchProps{
     filter: Filter,
     children: React.ReactNode,
     initialState: boolean,
-    // filterFunction: ( filter:string ) => void,
+    filterFunction: ( filter:string, isChecked:boolean ) => void,
 }
 
-export default function FilterBranch({filter, children, initialState}: FilterBranchProps) {
+export default function FilterBranch({filter, children, initialState, filterFunction}: FilterBranchProps) {
 
     const [isChecked, toggleChecked] = useState(initialState);
 
     const handleCheck = () => {
-        toggleChecked(!isChecked)
-        // filterFunction(filter.link)
+        filterFunction(filter.link, !isChecked)
+        toggleChecked(!isChecked);
     }
     
     return(
