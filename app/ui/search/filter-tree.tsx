@@ -5,6 +5,7 @@ import FilterBranch from "@/app/ui/search/filter-branch";
 import FilterLeaf from "@/app/ui/search/filter-leaf";
 import { Filter } from "@/app/lib/data-types";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { updateUrlParams } from "@/app/lib/filter-fiddler";
 interface FilterTreeProps {
         filterType: string,
         filterName: string
@@ -14,37 +15,13 @@ interface FilterTreeProps {
 
 export default function FilterTree({filterType, filterName, filters, isOpen}: FilterTreeProps) {
 
-
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    const filterResult = (filter:string, isChecked:boolean) => {
-
+    const filterResult = (chosenFilter:string, isChecked:boolean) => {
         const params = new URLSearchParams(searchParams);
-        const paramString = params.get(filterType);
-
-        if(isChecked) {
-            if(paramString) {
-                params.set(filterType, `${paramString},${filter}`);
-            } else {
-                params.set(filterType, filter);
-            }
-        } else {
-            if(paramString) {
-                const filterParams: string[] = paramString.split(',');
-
-                if(filterParams.includes(filter)){
-                    if(filterParams.length == 1) {
-                        params.delete(filterType);
-                    } else {
-                        const filterIndex = filterParams.indexOf(filter);
-                        filterParams.splice(filterIndex);
-                        params.set(filterType, filterParams.toString());
-                    }
-                }
-            }
-        }
+        updateUrlParams(filters, params, chosenFilter, isChecked, filterType)
         replace(`${pathname}?${params.toString()}`);
     };
 
