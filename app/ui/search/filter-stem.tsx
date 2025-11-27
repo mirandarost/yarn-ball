@@ -3,7 +3,7 @@
 import { Filter } from '@/app/lib/data-types';
 import Checkbox from '@/app/ui/checkbox';
 import { useState } from 'react';
-import FilterBranch from '@/app/ui/search/filter-branch-new'
+import FilterBranch from '@/app/ui/search/filter-branch'
 
 interface FilterBranchProps{
     filter: Filter,
