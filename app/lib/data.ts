@@ -44,8 +44,6 @@ export async function searchPatterns(params: FilterParams) {
         searchUrl = `${searchUrl}?query=${filterString}`
     }
 
-    console.log(searchUrl);
-
     try {
         const data = await fetch(searchUrl, {headers: headers});
         const { patterns } = await data.json();

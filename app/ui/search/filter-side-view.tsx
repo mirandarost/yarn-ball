@@ -1,5 +1,5 @@
 import { AllFilters, FilterParams } from "@/app/lib/data-types";
-import FilterTree from "@/app/ui/search/filter-tree";
+import FilterTree from "@/app/ui/search/filter-tree-new";
 
 interface FilterSideViewProps {
     filters: AllFilters,

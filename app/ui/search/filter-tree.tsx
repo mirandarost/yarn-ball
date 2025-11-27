@@ -53,7 +53,7 @@ export default function FilterTree({filterType, filterName, filters, isOpen}: Fi
                                         key={grandchild.link}
                                         initialState={grandchild.isChecked} 
                                         filterFunction={ filterResult }
-                                    />
+                                        />
                                     ))}
                                 </FilterBranch> 
                                 : <FilterLeaf 
@@ -61,7 +61,7 @@ export default function FilterTree({filterType, filterName, filters, isOpen}: Fi
                                     key={child.link}
                                     initialState={child.isChecked}
                                     filterFunction={ filterResult }
-                                />
+                                    />
                                 
                             ))}
                         </FilterBranch> 
@@ -70,7 +70,7 @@ export default function FilterTree({filterType, filterName, filters, isOpen}: Fi
                             filter={parent}
                             initialState={parent.isChecked}
                             filterFunction={ filterResult }
-                        />
+                            />
                     ))}
                 </div>
             </FilterRoot>  

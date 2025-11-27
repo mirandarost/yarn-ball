@@ -104,7 +104,6 @@ function removeFilter(params:URLSearchParams, chosenFilter:string, parentFilter:
 export function updateUrlParams(allFilters:Filter[], params:URLSearchParams, chosenFilter:string, isChecked:boolean, filterType:string) {
 
     const parentFilter = getParent(allFilters, chosenFilter);
-    console.log('parent: ' + parentFilter);
 
     if(isChecked) {
         addFilter(params, chosenFilter, parentFilter, filterType);
