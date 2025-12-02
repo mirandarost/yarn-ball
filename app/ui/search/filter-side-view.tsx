@@ -1,12 +1,21 @@
 import { AllFilters, FilterParams } from "@/app/lib/data-types";
 import FilterTree from "@/app/ui/search/filter-tree";
+import { getFilters } from "@/app/lib/data";
+import { notFound } from "next/navigation";
+
+
 
 interface FilterSideViewProps {
-    filters: AllFilters,
     filterParams: FilterParams,
 }
 
-export default function FilterSideView({ filters, filterParams }: FilterSideViewProps) {
+export default async function FilterSideView({ filterParams }: FilterSideViewProps) {
+
+    const filters: AllFilters | null = await getFilters(filterParams);
+
+    if (!filters) {
+        notFound();
+    }
 
     return(
         <div className='ml-5'>
