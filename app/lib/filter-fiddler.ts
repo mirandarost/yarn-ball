@@ -53,6 +53,31 @@ function getParent(allFilters:Filter[], chosenFilter:string) {
     return parentFilter;
 }
 
+function getChildren(allFilters:Filter[], chosenFilter:string) {
+    const children:string[] = [];
+
+    const parentFilter = allFilters.find(parent => parent.link == chosenFilter);
+
+    if(!parentFilter) {
+        console.log('error')
+        return
+    }
+
+    if(!parentFilter.children) {
+        return children;
+    }
+
+    parentFilter.children.map(child => {
+        children.push(child.link)
+        if(child.children) {
+            child.children.map(grandchild => {
+                children.push(grandchild.link)
+            })
+        }
+    })
+    return children;
+}
+
 function addFilter(params:URLSearchParams, chosenFilter:string, parentFilter:string, filterType:string) {
     const paramString = params.get(filterType);
 
@@ -66,14 +91,22 @@ function addFilter(params:URLSearchParams, chosenFilter:string, parentFilter:str
         params.set(filterType, `${paramString},${chosenFilter}`)
         return
     }
-    // If the filter has a parent, switch parent for new filter
     const paramList: string[] = paramString.split(',');
-    const parentIndex = paramList.indexOf(parentFilter);
-    paramList[parentIndex] = chosenFilter;
+
+    // If the filter has a parent, switch parent for new filter
+    if(paramList.includes(parentFilter)) {
+        const parentIndex = paramList.indexOf(parentFilter);
+        paramList[parentIndex] = chosenFilter;
+
+    } else { // A sibling is active so add to end of string
+        params.set(filterType, `${paramString},${chosenFilter}`)
+        return
+    }
+    
     params.set(filterType, paramList.toString());
 }
 
-function removeFilter(params:URLSearchParams, chosenFilter:string, parentFilter:string, filterType:string) {
+function removeFilter(params:URLSearchParams, chosenFilter:string, parentFilter:string, filterType:string, allFilters:Filter[]) {
     const paramString = params.get(filterType);
 
     if(!paramString){
@@ -83,8 +116,17 @@ function removeFilter(params:URLSearchParams, chosenFilter:string, parentFilter:
 
     const paramList: string[] = paramString.split(',');
 
-    // If current filter has no parent and there is only one filter active
-    if(!parentFilter && paramList.length == 1) {
+
+    const children = getChildren(allFilters, chosenFilter);
+    if(children) {
+        for(let i = 0; i < paramList.length; i++) {
+            if(children.includes(paramList[i])) {
+                paramList.splice(i)
+            }
+        }
+    }
+
+    if(!parentFilter && paramList.length < 1) {
         params.delete(filterType);
         return
     }
@@ -102,13 +144,12 @@ function removeFilter(params:URLSearchParams, chosenFilter:string, parentFilter:
 }
 
 export function updateUrlParams(allFilters:Filter[], params:URLSearchParams, chosenFilter:string, isChecked:boolean, filterType:string) {
-
     const parentFilter = getParent(allFilters, chosenFilter);
 
     if(isChecked) {
         addFilter(params, chosenFilter, parentFilter, filterType);
     } else {
-        removeFilter(params, chosenFilter, parentFilter, filterType)
+        removeFilter(params, chosenFilter, parentFilter, filterType, allFilters)
     }
 
 }
