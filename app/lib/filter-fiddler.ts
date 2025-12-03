@@ -56,7 +56,19 @@ function getParent(allFilters:Filter[], chosenFilter:string) {
 function getChildren(allFilters:Filter[], chosenFilter:string) {
     const children:string[] = [];
 
-    const parentFilter = allFilters.find(parent => parent.link == chosenFilter);
+    let parentFilter = allFilters.find(parent => parent.link == chosenFilter);
+
+    if(!parentFilter) {
+        allFilters.map(child => {
+            if(child.children) {
+                const possibleParent = child.children.find(parent => parent.link == chosenFilter)
+                console.log('possibleParent: ' + possibleParent)
+                if(possibleParent) {
+                    parentFilter = possibleParent;
+                }
+            }
+        })
+    }
 
     if(!parentFilter) {
         console.log('error')
@@ -151,5 +163,6 @@ export function updateUrlParams(allFilters:Filter[], params:URLSearchParams, cho
     } else {
         removeFilter(params, chosenFilter, parentFilter, filterType, allFilters)
     }
+    console.log('url done')
 
 }
